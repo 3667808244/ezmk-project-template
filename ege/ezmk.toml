@@ -1,0 +1,34 @@
+[project]
+name = "ege-template"
+type = "executable"
+version = "0.1.0"
+language = "C++17"    #  EGE推荐的版本
+
+[compile]
+flags = ["-Wall", "-Wextra"]
+default_profile = "debug"
+include_dirs = ["include"]
+
+[compile.profile.debug]
+flags = ["-g", "-O0"]
+msvc_flags = ["/Zi", "/Od"]
+
+[compile.profile.release]
+flags = ["-O2", "-DNDEBUG"]
+msvc_flags = ["/O2", "/DNDEBUG"]
+export_objs = true               # LGPL要求静态链接的程序需要提供用于重新链接的对象文件
+
+[link]
+flags = []
+link_dirs = ["lib/ege/mingw64"]                  # 可根据所需版本不同更换不同文件夹的libgraphics.a或者graphics.lib
+system_target = ["graphics", "gdi32", "gdiplus"]
+
+[depends]
+lib = []
+
+# [test]                     # 启用项目测试：取消注释后运行 `ezmk test`
+# framework = "catch2"       # "catch2" | "ezmk"（内置框架）
+# dirs = ["test"]
+# default_profile = "debug"  # 1.2.0-dev.12+：测试默认 profile
+# include_dirs = ["test/helpers"]   # 测试专属 -I（1.2.0-dev.12+）
+# link_targets = ["pthread"]        # 测试专属 -l（1.2.0-dev.12+）
