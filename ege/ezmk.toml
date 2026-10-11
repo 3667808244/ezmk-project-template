@@ -14,14 +14,18 @@ flags = ["-g", "-O0"]
 msvc_flags = ["/Zi", "/Od"]
 
 [compile.profile.release]
-flags = ["-O2", "-DNDEBUG", "-mwindows"]
-msvc_flags = ["/O2", "/DNDEBUG", "/SUBSYSTEM:WINDOWS"]
-export_objs = true                                     # LGPL要求静态链接的程序需要提供用于重新链接的对象文件
+flags = ["-O2", "-DNDEBUG"]
+msvc_flags = ["/O2", "/DNDEBUG"]
+export_objs = true               # LGPL要求静态链接的程序需要提供用于重新链接的对象文件
 
 [link]
 flags = []
 link_dirs = ["lib/ege/mingw64"]                  # 可根据所需版本不同更换不同文件夹的libgraphics.a或者graphics.lib
 system_target = ["graphics", "gdi32", "gdiplus"]
+
+[link.profile.release]
+flags = ["-mwindows"]
+msvc_flags = ["/SUBSYSTEM:WINDOWS"]
 
 [depends]
 lib = []
